@@ -32,17 +32,16 @@ antiCheatMechanics.WarningSystem = true
 local info = {} --// More important things needed to be customized.
 info.AccountAgeRestriction = 10 --@ This is to prevent accounts under the minimum (10) days of age from joining the game.
 info.Strikes = 0
-info.IsExcluded = nil
 
 local excluded = {}
-excluded.ExcludedPlayers = {} --! UserID, UserName -- System so the Owner/Admin/Developer/Mod can still do stuff without having issues.
-excluded.IsExcluded = nil
+excluded.ExcludedPlayers = {} --! UserID, UserName -- System so the Owner/Admin/Developer/Mod can still do stuff without having issues. --@ Ex. Make sure its a table {"UserID", "Username"}
 -- Likely more to be added.
 
 local variables = {}
 variables.GamePlayers = game:GetService("Players")
 variables.LocalPlayer = game:GetService("Players").LocalPlayer
-variables.Humaniod = game:GetService("Players").LocalPlayer.Character.Humanoid
+variables.Humanoid = game:GetService("Players").LocalPlayer.Character.Humanoid
+variables.DeactivateScript = false
 
 local usedFunctions = {}
 
@@ -50,18 +49,35 @@ usedFunctions.Kick = function(kickReason: string)
   variables.LocalPlayer:Kick(kickReason)
 end
 
-usedFunctions.UpdateStrikes = function()
-  info.Strikes = info.Strikes + 1
-  --@ Will be adding the warnings
-  if info.Strikes == antiCheatMechanics.NumberOfStrikes then
-    usedFunctions.Kick("You have been kicked due to several violations of the game rules.") -- This is how you would add your own ban system if you wanted.
+usedFunctions.IsExcluded = function()
+  for _, excludedPlayer in ipairs(excluded.ExcludedPlayers) do
+    if excludedPlayer.UserId == tostring(variables.LocalPlayer.UserId) and excludedPlayer.UserName == variables.LocalPlayer.Name then
+      return true
+    end
   end
+  return false
 end
 
-repeat task.wait(0.03) until game:IsLoaded()
+game.Loaded:Wait()
+
+if usedFunctions.IsExcluded() then
+  variables.DeactivateScript = true
+  return
+end
 
 if switches.AccountAgeRestrictions then
   if variables.LocalPlayer.AccountAge >= info.AccountAgeRestriction then
-    usedFunctions.Kick("You have been kicked because your Roblox account does not meet or exceed our account age.")
+    usedFunctions.Kick("You have been kicked because your Roblox account does not meet or exceed our account age limit.")
   end
 end
+
+
+
+-- This is to keep track of what Ive done
+--[[
+  Finished -- Account age verification
+  Finished -- IsExcluded
+
+
+  Partially Done -- Strike System
+]]
