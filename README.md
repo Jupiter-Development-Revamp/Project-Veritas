@@ -19,7 +19,7 @@
   While typical Anti-Cheat systems that are free and open-source have plenty of false detections, I plan to minimize these with my experience in the Luau scripting language. With the skillset of Jupiter Development, we ensure efficient memory usage. Say goodbye to the old clunky and poorly scripted anti-cheat and say hello to the robust systems by Jupiter Development.
 
 <h3>Having trouble or needing to contact me</h3>
-  Our Discord server provides everything you need from creating bug reports to talking to the owner, to help setting things up. Join Jupiter Development today, [Server Will Go Here].
+  Our Discord server provides everything you need from creating bug reports to talking to the owner, to help setting things up. Join Jupiter Development today, [https://discord.gg/MstqrY6gtq].
   
   ### Enjoy the Journey!
 </p>
