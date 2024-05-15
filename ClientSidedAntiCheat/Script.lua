@@ -20,7 +20,7 @@ switches.AntiSpeedModification = true
 switches.SpeedDetection = true
 switches.JumpDetection = true
 switches.InvisibleDetection = true -- Older invisible scripts teleport players to the void to be able to keep them invisible, you can easily detect this; however false positives prevented this from being useful. However, simple sanity checks can actually help this.
-switches.FEBypasserDetection = true
+switches.FEBypasserDetection = true -- Detected typically via health, and if im not wrong it can be detected by checking the humaniod.
 switches.TeleportDetection = true -- Can cause issue in games that teleport the player, possible need to disable.
 switches.AccountAgeRestrictions = true -- prevents young Roblox accounts from joining.
 
@@ -32,6 +32,10 @@ antiCheatMechanics.WarningSystem = true
 local info = {} --// More important things needed to be customized.
 info.AccountAgeRestriction = 10 --@ This is to prevent accounts under the minimum (10) days of age from joining the game.
 info.Strikes = 0
+info.WalkSpeedMaximum = 40
+info.NormalWalkSpeed = 30
+info.JumpPowerMaximum = 40
+info.NormalJumpPower = 34
 
 local excluded = {}
 excluded.ExcludedPlayers = {} --! UserID, UserName -- System so the Owner/Admin/Developer/Mod can still do stuff without having issues. --@ Ex. Make sure its a table {"UserID", "Username"}
@@ -58,11 +62,23 @@ usedFunctions.IsExcluded = function()
   return false
 end
 
+usedFunctions.UpdateStrikes = function()
+  info.Strikes = info.Strikes + 1
+  --@ Will be adding the warnings
+  if info.Strikes == antiCheatMechanics.NumberOfStrikes then
+    usedFunctions.Kick("You have been kicked due to several violations of the game rules.") -- This is how you would add your own ban system if you wanted.
+  end
+end
+
 game.Loaded:Wait()
 
 if usedFunctions.IsExcluded() then
   variables.DeactivateScript = true
   return
+end
+
+for i,v in ipairs(game:GetService("CoreGui")) do
+  table.insert(info.CoreGuiInfo, i, v)
 end
 
 if switches.AccountAgeRestrictions then
@@ -71,13 +87,47 @@ if switches.AccountAgeRestrictions then
   end
 end
 
+variables.Humanoid:GetAttributeChangedSignal("WalkSpeed"):Connect(function()
+  if variables.Humanoid.WalkSpeed > info.WalkSpeedMaximum and switches.SpeedDetection then
+    usedFunctions.UpdateStrikes()
+    variables.Humanoid.WalkSpeed = info.NormalWalkSpeed
+  end
+end)
+
+variables.Humanoid:GetAttributeChangedSignal("JumpPower"):Connect(function()
+  if variables.Humanoid.JumpPower > info.JumpPowerMaximum and switches.JumpDetection then
+    usedFunctions.UpdateStrikes()
+    variables.Humanoid.JumpPower = info.NormalJumpPower
+  end
+end)
+
+variables.LocalPlayer.Character.HumanoidRootPart.AttributeChanged("CFrame"):Connect(function(oldXYZ: CFrame | CFrameValue) -- This I think is right if not next update this will be redone
+  if switches.TeleportDetection then
+    if oldXYZ.X > variables.LocalPlayer.Character.HumanoidRootPart.CFrame.X + 60 then
+      usedFunctions.UpdateStrikes()
+    end
+  end
+end)
+
+while switches.InvisibleDetection do
+  if variables.LocalPlayer.Character.HumanoidRootPart.CFrame.X >= 9999 and variables.LocalPlayer.Character.HumanoidRootPart.CFrame.Y > 9999 then
+      task.wait(7)
+      if variables.LocalPlayer.Character.HumanoidRootPart.CFrame.X >= 9999 and variables.LocalPlayer.Character.HumanoidRootPart.CFrame.Y > 9999 then
+        usedFunctions.UpdateStrikes()
+      end
+  end
+end
+
 
 
 -- This is to keep track of what Ive done
 --[[
-  Finished -- Account age verification
-  Finished -- IsExcluded
+  Account age verification: ✅
+  IsExcluded: ✅
+  Speed Detection: ✅
+  Jump Detection: ✅
+  Teleport Detection: ✅
+  Invisible Detection: ✅
 
-
-  Partially Done -- Strike System
+  Strike System: 🟡
 ]]
