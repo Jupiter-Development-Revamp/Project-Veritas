@@ -1,7 +1,7 @@
 <h1 align="center">Introduction</h1>
 
 <p align="center">
-  Hello, everyone, I am Styx, representing Jupiter Development. While we've always delivered top-notch scripting in the open-source and public landscape, this time we're crossing into new territory with a project that's beneficial and provides a thrill of learning not just for you, but for me as well.
+  Hello, everyone, I am Styx, representing Jupiter Development. While we've always delivered top-notch scripting in the open-source and public landscape, this time we're crossing into new territory with a project that's beneficial and provides a thrill of learning not just for you, but for me as well. Join the Jupiter Development Discord server here https://discord.gg/MstqrY6gtq. 
 
   <h2>The Why</h2>
   Our latest production introduces two types of Luau Anti-Cheats, marking a departure from our usual offerings. With our extensive experience, we're confident in delivering a robust system, minimizing false positives, and providing immense customization. Both Server-Sided and Client-Sided Anti-Cheats are what we are offering, recommended for real-world application. We challenge the notion of "Never trust the client" and invite you to judge for yourselves.
