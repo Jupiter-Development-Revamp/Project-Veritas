@@ -15,14 +15,12 @@
 ]]
 
 local switches = {} --// Use this for customizations.
-switches.AntiJumpPowerModification = true
-switches.AntiSpeedModification = true
 switches.SpeedDetection = true
 switches.JumpDetection = true
 switches.InvisibleDetection = true -- Older invisible scripts teleport players to the void to be able to keep them invisible, you can easily detect this; however false positives prevented this from being useful. However, simple sanity checks can actually help this.
-switches.FEBypasserDetection = true -- Detected typically via health, and if im not wrong it can be detected by checking the humaniod.
 switches.TeleportDetection = true -- Can cause issue in games that teleport the player, possible need to disable.
 switches.AccountAgeRestrictions = true -- prevents young Roblox accounts from joining.
+switches.UIDetection = true -- Detects UI's in CoreGUI
 
 local antiCheatMechanics = {} --// Customize for how you want the Anti-Cheat to work
 antiCheatMechanics.StrikeSystem = true
@@ -64,7 +62,12 @@ end
 
 usedFunctions.UpdateStrikes = function()
   info.Strikes = info.Strikes + 1
-  --@ Will be adding the warnings
+  game:GetService("StarterGui"):SetCore("SendNotification",{
+    Title = "Warning!",
+    Text = "You've been caught cheating, stop it! You only have " .. antiCheatMechanics.NumberOfStrikes - info.Strikes .. " left.",
+    Duration = 3
+  }
+)
   if info.Strikes == antiCheatMechanics.NumberOfStrikes then
     usedFunctions.Kick("You have been kicked due to several violations of the game rules.") -- This is how you would add your own ban system if you wanted.
   end
@@ -114,11 +117,26 @@ while switches.InvisibleDetection do
       task.wait(7)
       if variables.LocalPlayer.Character.HumanoidRootPart.CFrame.X >= 9999 and variables.LocalPlayer.Character.HumanoidRootPart.CFrame.Y > 9999 then
         usedFunctions.UpdateStrikes()
+        variables.LocalPlayer.Character.Humanoid.Health = 0
       end
   end
 end
 
-
+while true do
+  local coreGui = game:GetService("CoreGui")
+  local table = {}
+  local weakMetaTable = setmetatable({}, {__mode = "kv"})
+  weakMetaTable[1] = coreGui
+  weakMetaTable[2] = table
+  coreGui = nil
+  table = nil
+    while weakMetaTable[2] do
+      task.wait(0.15)
+    end
+    if weakMetaTable[1] then
+      usedFunctions.UpdateStrikes()
+    end
+end
 
 -- This is to keep track of what Ive done
 --[[
@@ -128,6 +146,6 @@ end
   Jump Detection: ✅
   Teleport Detection: ✅
   Invisible Detection: ✅
-
-  Strike System: 🟡
+  UI Detection: ✅
+  Strike System: ✅
 ]]
