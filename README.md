@@ -4,7 +4,7 @@
   Hello, everyone, I am Styx, representing Jupiter Development. While we've always delivered top-notch scripting in the open-source and public landscape, this time we're crossing into new territory with a project that's beneficial and provides a thrill of learning not just for you, but for me as well. Join the Jupiter Development Discord server here https://discord.gg/MstqrY6gtq. 
 
   <h2>The Why</h2>
-  Our latest production introduces two types of Luau Anti-Cheats, marking a departure from our usual offerings. With our extensive experience, we're confident in delivering a robust system, minimizing false positives, and providing immense customization. Both Server-Sided and Client-Sided Anti-Cheats are what we are offering, recommended for real-world application. We challenge the notion of "Never trust the client" and invite you to judge for yourselves.
+  Our latest production introduces a clientsided Luau Anti-Cheat, marking a departure from our usual offerings. With our extensive experience, we're confident in delivering a robust system, minimizing false positives, and providing immense customization. Client-Sided Anti-Cheats, rated for real-world application. We challenge the notion of "Never trust the client" and invite you to judge for yourselves.
 
   <h2>Limitations</h2>
   This marks our first time venturing into the realm of real Anti-Cheat solutions, presenting a learning curve for us. Nevertheless, we hope this project will be educational and useful to all who encounter it. Its success is important to us, showcasing our competency in everything we tackle, even Anti-Cheat solutions.
