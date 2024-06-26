@@ -14,6 +14,7 @@
 
 <h3>Features</h3>
   While this is not done, we plan to add plenty of features; minimizing those pesky cheaters and encouraging fair gameplay. While there will be no ban system in place, you are more than allowed to add it; I plan to ensure customization at its core. Ranging from enacting a strike system, kick system, warnings, to even custom user interfaces for you to show the user their warned.
+  Please leave us features you want to see.
 
 <h3>Benefits</h3>
   While typical Anti-Cheat systems that are free and open-source have plenty of false detections, I plan to minimize these with my experience in the Luau scripting language. With the skillset of Jupiter Development, we ensure efficient memory usage. Say goodbye to the old clunky and poorly scripted anti-cheat and say hello to the robust systems by Jupiter Development.
