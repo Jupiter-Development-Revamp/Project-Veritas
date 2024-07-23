@@ -1,6 +1,6 @@
 --[[
   Project Name: Client Sided Anti-Cheat
-  Status: Finished, in progress. Join Jupiter Development to suggest features and functions. 
+  Status: Finished, obselete. Join Jupiter Development to suggest features and functions. 
   Developers:
               Jupiter Development:
                                   Styx -- Founder and Lead Developer.
